@@ -2,9 +2,9 @@ package nut.corp.model;
 
 import java.time.LocalDate;
 
-public class Pet {
+public class Pet extends BaseEntity {
     private PetType petType;
-    private my.petclinic.model.Owner owner;
+    private Owner owner;
     private LocalDate birthDate;
 
     public PetType getPetType() {
@@ -15,11 +15,11 @@ public class Pet {
         this.petType = petType;
     }
 
-    public my.petclinic.model.Owner getOwner() {
+    public Owner getOwner() {
         return owner;
     }
 
-    public void setOwner(my.petclinic.model.Owner owner) {
+    public void setOwner(Owner owner) {
         this.owner = owner;
     }
 
