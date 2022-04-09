@@ -1,14 +1,25 @@
 package nut.corp.controllers;
 
-import org.springframework.stereotype.Controller;
+import nut.corp.model.Vet;
+import nut.corp.services.VetService;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.Collection;
+
+@RequestMapping("/vets")
+@RestController
 public class VetController {
 
+    private final VetService vetService;
+
+    public VetController(VetService vetService) {
+        this.vetService = vetService;
+    }
+
     @RequestMapping(value = "/vets", method = RequestMethod.GET)
-    public String index() {
-        return "Vet Index";
+    public Collection<Vet> index() {
+        return vetService.findAll();
     }
 }

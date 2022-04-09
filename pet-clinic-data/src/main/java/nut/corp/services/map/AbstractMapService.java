@@ -1,32 +1,51 @@
 package nut.corp.services.map;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import nut.corp.model.BaseEntity;
 
-public abstract class AbstractMapService<T, ID> {
-    protected Map<ID, T> map = new HashMap<>();
+import java.util.*;
 
-    Set<T> findAll() {
+public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> {
+    protected Map<Long, T> map = new HashMap<>();
+
+    public Set<T> findAll() {
         return new HashSet<>(map.values());
     }
 
-    T findById(ID id) {
+    public T findById(ID id) {
         return map.get(id);
     }
 
-    T save(ID id, T object) {
-        map.put(id, object);
+    public T save(T object) {
+        if (object != null) {
+            if (object.getId() == null) {
+                object.setId(getNextId());
+            }
+
+            map.put(object.getId(), object);
+        } else {
+            throw new RuntimeException();
+        }
 
         return object;
     }
 
-    void deleteById(ID id) {
+    public void deleteById(ID id) {
         map.remove(id);
     }
 
-    void delete(T object) {
+    public void delete(T object) {
         map.entrySet().removeIf(entry -> entry.getValue().equals(object));
+    }
+
+    private Long getNextId() {
+
+        Long nextId = null;
+        try {
+            nextId = Collections.max(map.keySet()) + 1;
+        } catch (NoSuchElementException e) {
+            nextId = 1L;
+        }
+
+        return nextId;
     }
 }
