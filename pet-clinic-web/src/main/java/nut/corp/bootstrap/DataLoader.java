@@ -1,10 +1,11 @@
 package nut.corp.bootstrap;
 
 import nut.corp.model.Owner;
+import nut.corp.model.PetType;
 import nut.corp.model.Vet;
 import nut.corp.services.OwnerService;
+import nut.corp.services.PetTypeService;
 import nut.corp.services.VetService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -13,14 +14,21 @@ public class DataLoader implements CommandLineRunner {
 
     private final OwnerService ownerService;
     private final VetService vetService;
+    private final PetTypeService petTypeService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
+        this.petTypeService = petTypeService;
     }
 
     @Override
     public void run(String... args) throws Exception {
+        PetType petType1 = new PetType("type1");
+        petTypeService.save(petType1);
+        PetType petType2 = new PetType("type2");
+        petTypeService.save(petType2);
+
         Owner owner1 = new Owner("Bob", "dsgf");
         ownerService.save(owner1);
 
