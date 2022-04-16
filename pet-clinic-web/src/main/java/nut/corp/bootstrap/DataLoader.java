@@ -1,9 +1,11 @@
 package nut.corp.bootstrap;
 
 import nut.corp.model.Owner;
+import nut.corp.model.Pet;
 import nut.corp.model.PetType;
 import nut.corp.model.Vet;
 import nut.corp.services.OwnerService;
+import nut.corp.services.PetService;
 import nut.corp.services.PetTypeService;
 import nut.corp.services.VetService;
 import org.springframework.boot.CommandLineRunner;
@@ -15,11 +17,18 @@ public class DataLoader implements CommandLineRunner {
     private final OwnerService ownerService;
     private final VetService vetService;
     private final PetTypeService petTypeService;
+    private final PetService petService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService) {
+    public DataLoader(
+            OwnerService ownerService,
+            VetService vetService,
+            PetTypeService petTypeService,
+            PetService petService
+    ) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
+        this.petService = petService;
     }
 
     @Override
@@ -30,9 +39,15 @@ public class DataLoader implements CommandLineRunner {
         petTypeService.save(petType2);
 
         Owner owner1 = new Owner("Bob", "dsgf");
+        Pet pet1 = new Pet(petType1);
+        pet1.setOwner(owner1);
+        owner1.getPets().add(pet1);
         ownerService.save(owner1);
 
         Owner owner2 = new Owner("John", "erw4r34");
+        Pet pet2 = new Pet(petType2);
+        pet2.setOwner(owner2);
+        owner2.getPets().add(pet2);
         ownerService.save(owner2);
 
         Owner owner3 = new Owner("Maki", "4fgte4r");
