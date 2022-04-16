@@ -5,5 +5,5 @@ import nut.corp.services.PetService;
 import org.springframework.stereotype.Service;
 
 @Service
-public class PetServiceImp extends AbstractMapService<Pet, Long> implements PetService {
+public class PetServiceMap extends AbstractMapService<Pet, Long> implements PetService {
 }
