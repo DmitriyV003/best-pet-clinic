@@ -4,9 +4,11 @@ import nut.corp.model.Speciality;
 import nut.corp.model.Vet;
 import nut.corp.services.SpecialityService;
 import nut.corp.services.VetService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 @Service
+@Profile({"default", "map"})
 public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
     private final SpecialityService specialityService;
 
