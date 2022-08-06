@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Service
-@Profile("springdatajpa")
+@Profile("dev")
 public class VisitServiceJpa implements VisitService {
     private final VisitRepository visitRepository;
 
@@ -31,7 +31,7 @@ public class VisitServiceJpa implements VisitService {
     public Visit findById(Long aLong) {
         return visitRepository.findById(aLong).orElse(null);
     }
-
+    
     @Override
     public Visit save(Visit object) {
         return visitRepository.save(object);
